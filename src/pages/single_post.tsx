@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function PostDetails() {
-  const { posts, currentUser } = useAuth();
+  const { posts, currentUser, getPosts } = useAuth();
   const { postId } = useParams();
   const post = posts.find((p) => p.id === postId);
   const [commentText, setCommentText] = useState("");
@@ -18,7 +18,6 @@ export default function PostDetails() {
       createdAt: Date.now(),
       user: currentUser?.full_name,
     };
-    console.log(newComment);
 
     try {
       const updatedComment = [...post?.comments, newComment];
@@ -26,8 +25,9 @@ export default function PostDetails() {
         ...post,
         comments: updatedComment,
       });
-      console.log("Comment added:", res.data);
+
       setCommentText("");
+      getPosts();
     } catch (error) {
       console.error("Failed to add comment:", error);
     }

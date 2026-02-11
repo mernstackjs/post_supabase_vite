@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { useAuth } from "../providers/auth-context";
 
 export default function Profile() {
   const { currentUser, posts } = useAuth();
 
   const yourPosts = posts.filter((pos) => pos.owner.id === currentUser?.id);
-
+  console.log(yourPosts);
   return (
     <div className="flex justify-center mt-12 px-4">
       <div className="bg-white shadow-xl rounded-3xl p-8 w-full max-w-2xl">
@@ -47,6 +48,30 @@ export default function Profile() {
                   <span className="text-gray-500 text-xs">
                     Published: {new Date(post.createdAt).toLocaleString()}
                   </span>
+                  <div className="w-full mt-4">
+                    <h3 className="text-gray-700 font-semibold mb-2">
+                      Comments ({post.comments.length})
+                    </h3>
+
+                    <ul className="space-y-3">
+                      {post.comments.map((c) => (
+                        <li
+                          key={c.id}
+                          className="bg-gray-50 border border-gray-200 rounded-2xl p-4 hover:bg-gray-100 transition-colors"
+                        >
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium text-gray-800">
+                              {c.user}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              {new Date(c.createdAt).toLocaleString()}
+                            </span>
+                          </div>
+                          <p className="text-gray-600 text-sm">{c.text}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </li>
               ))}
             </ul>
