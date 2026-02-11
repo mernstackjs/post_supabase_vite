@@ -5,6 +5,47 @@
       "email": "ani@gmail.com",
       "password": "12",
       "full_name": "Ahmed Abdirizaak"
+    },
+    {
+      "id": "9ba6",
+      "email": "ashro@gmail.com",
+      "password": "12",
+      "full_name": "Ashrafiin"
+    }
+  ],
+  "posts": [
+    {
+      "id": "4f51",
+      "title": "test hello",
+      "desc": "asasas",
+      "owner": {
+        "id": "82c7",
+        "full_name": "Ahmed Abdirizaak"
+      },
+      "createdAt": 1770803983970,
+      "comments": []
+    },
+    {
+      "id": "fe30",
+      "title": "aabe",
+      "desc": "school",
+      "owner": {
+        "id": "9ba6",
+        "full_name": "Ashrafiin"
+      },
+      "createdAt": 1770804041717,
+      "comments": []
+    },
+    {
+      "id": "7e24",
+      "title": "mid kale",
+      "desc": "hhas",
+      "owner": {
+        "id": "82c7",
+        "full_name": "Ahmed Abdirizaak"
+      },
+      "createdAt": 1770804060618,
+      "comments": []
     }
   ]
 }
