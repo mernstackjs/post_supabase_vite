@@ -1,14 +1,10 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import { useAuth } from "../providers/auth-context";
 
 export default function SignUp() {
-  const { users, isLoading, getUsers, error } = useAuth();
-
-  console.log(error);
-
-  console.log(users);
-  console.log(isLoading);
+  const { users, isLoading, getUsers } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +28,7 @@ export default function SignUp() {
       console.log(error);
     }
     await getUsers();
+    navigate("/sign-in");
   };
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
