@@ -1,21 +1,30 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAuth } from "../providers/auth-context";
 
 export default function SignIn() {
+  const navigate = useNavigate();
   const { signIn } = useAuth();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     const email = formData.get("email")?.toString();
     const password = formData.get("password")?.toString();
     if (!email || !password) return alert("enter credintial");
-    const user = {
-      email,
-      password,
-    };
-    signIn(email, password);
-    console.log(user);
+
+    try {
+      const success = await signIn(email, password);
+
+      if (success) {
+        navigate("/profile");
+      } else {
+        alert("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <h1>SignIn</h1>

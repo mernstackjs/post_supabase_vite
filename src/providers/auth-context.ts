@@ -7,10 +7,19 @@ type UsersProps = {
   email: string;
 };
 
+type CurrentUser = {
+  id: number;
+  email: string;
+  full_name: string;
+  isAuthenticated: boolean;
+};
+
 type AuthContextT = {
   users: UsersProps[];
   getUsers: () => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<boolean>;
+  logOut: () => void;
+  currentUser: CurrentUser | null;
   isLoading: boolean;
   error: string | null;
 };
@@ -20,7 +29,9 @@ export const AuthContext = createContext<AuthContextT>({
   isLoading: true,
   error: "",
   getUsers: async () => {},
-  signIn: async () => {},
+  signIn: async () => false,
+  logOut: () => {},
+  currentUser: null,
 });
 
 export const useAuth = () => useContext(AuthContext);
