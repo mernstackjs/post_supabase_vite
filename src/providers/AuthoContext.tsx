@@ -64,19 +64,18 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     setCurrentUser(null);
     localStorage.removeItem("user_info");
   };
-
+  const getPosts = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get("http://localhost:6060/posts");
+      setPosts(res.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   useEffect(() => {
-    const getPosts = async () => {
-      setIsLoading(true);
-      try {
-        const res = await axios.get("http://localhost:6060/posts");
-        setPosts(res.data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     getPosts();
   }, []);
 
@@ -95,6 +94,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         signIn,
         logOut,
         posts,
+        getPosts,
       }}
     >
       {children}
