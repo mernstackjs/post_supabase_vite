@@ -14,12 +14,26 @@ type CurrentUser = {
   isAuthenticated: boolean;
 };
 
+type Owner = {
+  full_name: string;
+  id: string;
+};
+
+type PostsProps = {
+  title: string;
+  createdAt: string;
+  desc: string;
+  comments: [];
+  owner: Owner;
+};
+
 type AuthContextT = {
   users: UsersProps[];
   getUsers: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<boolean>;
   logOut: () => void;
   currentUser: CurrentUser | null;
+  posts: PostsProps[];
   isLoading: boolean;
   error: string | null;
 };
@@ -32,6 +46,7 @@ export const AuthContext = createContext<AuthContextT>({
   signIn: async () => false,
   logOut: () => {},
   currentUser: null,
+  posts: [],
 });
 
 export const useAuth = () => useContext(AuthContext);
